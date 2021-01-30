@@ -1,0 +1,169 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{vietnam}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+\begin{center}
+    \fontsize{30}{30}\selectfont
+    MÃ NGUỒN CÀI ĐẶT
+\end{center}
+\fontsize{14}{20}\selectfont
+Mã giải bài toán\\
+\begin{lstlisting}
+n, w = list(map(int, input().split()))
+sz = list([])
+for i in range(n):
+    sz.append(int(0))
+F = list([]); G = list([])
+for i in range(n + 1):
+    F.append(list([]))
+    G.append(list([]))
+    for j in range(n + 1):
+        F[i].append(int(10e10))
+        G[i].append(int(10e10))
+a = list([]);b = list([])
+tmp1, tmp2 = map(int, input().split())
+a.append(tmp1); b.append(tmp2); gg = list([])
+for i in range(n + 1):
+    gg.append(list([]))
+for i in range(1, n):
+    tmp1, tmp2, tmp3 = map(int, input().split())
+    a.append(tmp1);b.append(tmp2)
+    gg[tmp3 - 1].append(i)
+
+def dfs(u):
+    F[u][1] = a[u] - b[u]; sz[u] = 1; G[u][0] = 0; G[u][1] = a[u]
+    for i in gg[u]:
+        v = int(i); dfs(v)
+        for j in range(sz[u], -1, -1):
+            for k in range(0, sz[v] + 1):
+                G[u][j + k] = min(G[u][j + k], G[u][j] + G[v][k])
+                F[u][j + k] = min(F[u][j + k], F[u][j] + min(G[v][k], F[v][k]))
+        sz[u] += sz[v]
+
+dfs(0)
+ans = int(0);
+for i in range(n, -1, -1):
+    if (min(F[0][i], G[0][i]) <= w):
+        ans = i;break
+print(ans)
+\end{lstlisting}
+\vspace{2 cm}
+Mã sinh file input\\
+\begin{lstlisting}
+import random
+st="inp"
+for i in range(1,3):
+    tmp=st+str(i)+".txt"
+    file=open(tmp,"w")\\
+    a=list([])\\
+    b=list([])\\
+    c=list([])\\
+    s=int(0)\\
+    s1=int(0)\\
+    for j in range(i):\\
+        a.append(random.randint(2,10e9))\\
+        b.append(random.randint(1,a[j]-1))\\
+        if (j>0):\\
+            c.append(random.randint(1,j))\\
+        s+=a[j]\\
+        s1+=(a[j]-b[j])\\
+    w=random.randint(1,min(s1,int(10e9)))\\
+    file.write("{} {}\n".format(i,w))\\
+    file.write("{} {}\n".format(a[0],b[0]))\\
+    for j in range(1,i):\\
+        file.write("{} {} {}\n".format(a[j],b[j],c[j-1]))\\
+    file.close()
+\end{lstlisting}
+\vspace{2 cm}
+Mã đệ quy\\
+\begin{lstlisting}
+n,w=map(int,input().split())
+
+a=list([])
+b=list([])
+c=list([])
+
+tmp1,tmp2=map(int,input().split())
+
+a.append(tmp1)
+b.append(tmp2)
+b[0]=a[0]-b[0]
+c.append(int(-1))
+
+for i in range(n-1):
+    tmp1,tmp2,tmp3=map(int,input().split())
+    tmp2=tmp1-tmp2
+    a.append(tmp1)
+    b.append(tmp2)
+    c.append(tmp3-1)
+
+kt=list([]) #Mang danh dau nhung mon do da mua
+ktt=list([]) #Mang danh dau nhung mon do da mua co dung phieu giam gia
+for i in range(n):
+    kt.append(bool(True))
+    ktt.append(bool(True))
+
+ans=int(0) #So mon do nhieu nhat co the mua duoc
+ans1=list([]) #Mang luu nhung mon do da mua theo ket qua
+
+for i in range(n):
+    ans1.append(int(0))
+
+def dequy(i,s,tr):
+    global ans
+    for j in range(tr+1,n):
+        if (kt[j] and (s+a[j]<=w or (s+b[j]<=w and (c[j]==-1 or not ktt[c[j]])))):
+            if (c[j]==-1 or not ktt[c[j]]):
+                s=s+b[j]
+                ktt[j]=False
+            else:
+                s=s+a[j]
+            kt[j]=False
+            dequy(i+1,s,j)
+            if (ans<i):
+                ans=i
+                dem=int(0)
+                for z in range(n):
+                    if (not kt[z]):
+                        ans1[dem]=z
+                        dem+=1
+            if (c[j] == -1 or not ktt[c[j]]):
+                s = s - b[j]
+                ktt[j]=True
+            else:
+                s = s - a[j]
+            kt[j]=True
+
+dequy(1,0,-1)
+print(ans)
+print(ans1)
+\end{lstlisting}
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{vietnam}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\begin{center}
+    \fontsize{30}{30}\selectfont
+    BÀI TOÁN \\
+\end{center}
+
+\begin{flushleft}
+    \fontsize{14}{20}\selectfont
+    Đặt vấn đề:\\
+    Thắng, Huy và Trung đi siêu thị mua đồ. Nhưng vì đều là sinh viên, họ rất quan tâm đến việc tiết kiệm. Cả nhóm chỉ có c (đồng) để đi mua sắm. Trong siêu thị, có n món hàng đang được bày bán. Mỗi món hàng i sẽ có giá tiền $a_i$, và chỉ được mua với số lượng là 1.\\
+    Siêu thị đang có chương trình khuyến mãi, với mỗi món hàng i sẽ được giảm một khoản tiền $b_i$ tương ứng khi dùng phiếu giảm giá. Tuy nhiên có một hạn chế: Với mọi i từ 2 trở lên, để sử dụng phiếu giảm giá thứ i, nhóm 3 bạn sinh viên này phải sử dụng phiếu giảm giá $x_i$, nghĩa là họ phải sử dụng nhiều phiếu giảm giá hơn nữa để đáp ứng yêu cầu đối với phiếu giảm giá đó.\\
+    Hãy giúp 3 bạn sinh viên này tìm ra số lượng hàng tối đa mà họ có thể mua mà không vượt quá số tiền c đang có.\\
+    \vspace{1 cm}
+    Input:\\
+    Dòng đầu tiên chứa hai số nguyên n và c $(1 \le n, 1 \le c)$ là số lượng hàng siêu thị có và số tiền mà 3 bạn đang có.\\
+    n dòng tiếp theo mô tả chi tiết về các mặt hàng được bán:\\
+    Dòng thứ i trong nhóm gồm hai số nguyên, $a_i$ và $b_i$ $(1 \le b_i \le a_i)$ là giá tiền món hàng i và khoản tiền được giảm.\\
+    Nếu $(i \ge 2)$ , theo sau là một số nguyên nữa, $x_i$ $(1 \le x_i < i)$ thể hiện mã giảm giá $x_i$ cũng phải được sử dụng để có thể sử dụng mã giảm giá này.\\
+    \vspace{1 cm}
+    Output:\\
+    Một số nguyên thể hiện số món hàng khác nhau có thể mua mà không quá số tiền đang có.
+\end{flushleft}
+\end{document}

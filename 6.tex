@@ -1,0 +1,59 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{vietnam}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\begin{document}
+
+\begin{center}
+    \fontsize{30}{30}\selectfont
+    MÃ GIẢ \\
+\end{center}
+
+\fontsize{14}{20}\selectfont
+
+\begin{flushleft}
+Quy hoạch động \\
+void dfs(u)\\
+\hspace{1 cm} //Mảng F là mảng lưu số tiền nhỏ nhất khi mua i món đồ thuộc cây con gốc u mà có dùng phiểu giảm giá.\\
+\hspace{1 cm} //Mảng G là mảng lưu số tiền nhỏ nhất khi mua i món đồ thuộc cây con gốc u mà không dùng phiếu giảm giá.\\
+\hspace{1 cm} //Mảng a là mảng lưu số tiền để mua món đồ u.\\
+\hspace{1 cm} //Mảng b là mảng lưu số tiền có thể giảm khi mua món đồ u bằng phiếu giảm giá.\\
+\hspace{1 cm} //Mảng sz là mảng lưu số lượng đỉnh đã được duyệt của cây con có đỉnh u là gốc.\\
+\hspace{1 cm} //Mảng gg là mảng lưu cây dưới dạng danh sách kề.\\
+\hspace{1 cm} //Khởi tạo giá trị ban đầu cho đỉnh u.\\
+\hspace{1 cm} F[u][1]=a[u]-b[u]; \\
+\hspace{1 cm} sz[u]=1; \\
+\hspace{1 cm} G[u][0]=0;\\
+\hspace{1 cm} G[u][1]=a[u];\\
+\hspace{1 cm} for <các con của đỉnh u> \\
+\hspace{2 cm} //Mảng gg là mảng lưu các đỉnh kề\\
+\hspace{2 cm} v=gg[u][i];\\
+\hspace{2 cm} //Duyệt sâu đỉnh v \\
+\hspace{2 cm} dfs(v);\\
+\hspace{2 cm} //Nhập cây con v vào u và cập nhật giá trị\\
+\hspace{2 cm} for <j món đồ trong số lượng đồ đã được duyệt của u>\\
+\hspace{3 cm} for <k món đồ trong số lượng đồ của cây con v> \\
+\hspace{4 cm} //Cập nhật số tiền nhỏ nhất khi mua j+k đồ có tổ tiên chung là u\\
+\hspace{4 cm} G[u][j+k]=min(G[u][j+k],G[u][j]+G[v][k]);\\
+\hspace{4 cm} F[u][j+k]=min(F[u][j+k],F[u][j]+min(G[v][k],F[v][k]));\\
+\hspace{3 cm} //Thêm số lượng đồ của v vào u\\
+\hspace{3 cm} sz[u]+=sz[v]\\
+\vspace{1cm}
+Duyệt tìm kết quả\\
+ans=0;\\
+for<mua i món đồ trong n món đồ>\\
+\hspace{1 cm} if(số tiền nhỏ nhất để mua i món đồ bé hơn a và ans < i)\\
+\hspace{2 cm} ans=i;break;\\
+\end{flushleft}
+
+\end{document}
